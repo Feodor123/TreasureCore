@@ -15,6 +15,12 @@ impl<T> Array2D<T> {
     }
 }
 
+impl<T> Array2D<T> {
+    pub fn size(&self) -> Point {
+        self.size
+    }
+}
+
 impl<T> Index<Point> for Array2D<T> {
     type Output = T;
 
@@ -26,5 +32,14 @@ impl<T> Index<Point> for Array2D<T> {
 impl<T> IndexMut<Point> for Array2D<T> {
     fn index_mut(&mut self, index: Point) -> &mut Self::Output {
         &mut self.arr[(index.x + self.size.x * index.y) as usize]
+    }
+}
+
+impl<T> IntoIterator for Array2D<T> {
+    type Item = T;
+    type IntoIter = std::vec::IntoIter<T>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.arr.into_iter()
     }
 }

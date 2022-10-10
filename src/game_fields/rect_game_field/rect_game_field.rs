@@ -1,12 +1,12 @@
+use std::ops::{Index, IndexMut};
+
+use crate::array_2d::Array2D;
 use crate::direction::Direction;
 use crate::game_field::GameField;
 use crate::misc_action_data::{BulletMotionInfo, BulletMotionMessage, BulletMotionType, MotionInfo, MotionMessage, MotionType};
 use crate::player_action::PlayerAction::{self, Move, Shoot};
 use crate::point::Point;
 use crate::tile::Tile;
-use crate::array_2d::Array2D;
-
-use std::ops::{Index, IndexMut};
 
 pub struct RectGameField {
     size: Point,
@@ -67,10 +67,10 @@ impl RectGameField {
             let new_pos = match mt {
                 MotionType::Move(dir) => {
                     self.characters[self.current_player].pos + Direction::point(dir)
-                },
+                }
                 MotionType::Teleport { target_point } => {
                     target_point
-                },
+                }
                 _ => panic!("Unexpected")
             };
             self.move_character_to(self.current_player, new_pos);

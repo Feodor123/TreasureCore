@@ -9,6 +9,8 @@ mod game;
 mod player_action;
 mod controller;
 mod array_2d;
+mod topology;
+mod topologies;
 
 #[cfg(test)]
 mod tests {
