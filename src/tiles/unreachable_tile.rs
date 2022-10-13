@@ -4,11 +4,11 @@ use crate::tile::Tile;
 pub struct UnreachableTile;
 
 impl Tile for UnreachableTile {
-    fn on_step(&mut self, motion_type: MotionType, motion_info: MotionInfo) -> (MotionType, MotionInfo, MotionMessage) {
+    fn on_step(&mut self, _motion_type: MotionType, _motion_info: MotionInfo) -> (MotionType, MotionInfo, MotionMessage) {
         panic!("Unreachable tile");
     }
 
-    fn on_shoot(&mut self, bullet_motion_type: BulletMotionType, bullet_motion_info: BulletMotionInfo) -> (BulletMotionType, BulletMotionInfo,
+    fn on_shoot(&mut self, _bullet_motion_type: BulletMotionType, _bullet_motion_info: BulletMotionInfo) -> (BulletMotionType, BulletMotionInfo,
                                                                                                            BulletMotionMessage) {
         panic!("Unreachable tile");
     }

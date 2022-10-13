@@ -27,7 +27,7 @@ impl Tile for BorderTile {
         }
     }
 
-    fn on_shoot(&mut self, bullet_motion_type: BulletMotionType, bullet_motion_info: BulletMotionInfo) -> (BulletMotionType, BulletMotionInfo,
+    fn on_shoot(&mut self, bullet_motion_type: BulletMotionType, _bullet_motion_info: BulletMotionInfo) -> (BulletMotionType, BulletMotionInfo,
                                                                      BulletMotionMessage) {
         if self.wall {
             self.wall = false;

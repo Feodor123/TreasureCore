@@ -159,7 +159,7 @@ impl RectGameField {
     }
 }
 
-struct Character {
+pub struct Character {
     pos: Point,
     ammo: i32,
     has_treasure: bool,

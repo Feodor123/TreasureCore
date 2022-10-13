@@ -1,5 +1,5 @@
 use crate::direction::Direction;
-use crate::misc_action_data::{BulletMotionInfo, BulletMotionMessage, MotionInfo, MotionMessage, MotionType};
+use crate::misc_action_data::{MotionInfo, MotionMessage, MotionType};
 use crate::tile::Tile;
 
 pub struct WaterTile {
@@ -10,7 +10,7 @@ pub struct WaterTile {
 impl Tile for WaterTile {
     fn on_step(&mut self, motion_type: MotionType, motion_info: MotionInfo) -> (MotionType, MotionInfo, MotionMessage) {
         match motion_type {
-            MotionType::Move(dir) => {},
+            MotionType::Move(_dir) => {},
             _ => panic!("Unexpected"),
         };
         match motion_info {

@@ -1,4 +1,4 @@
-use rand::Rng;
+
 use crate::array_2d::Array2D;
 use crate::game_fields::rect_game_field::rect_game_field::RectGameField;
 use crate::point::Point;
@@ -8,7 +8,7 @@ use crate::tiles::field_tile::FieldTile;
 use crate::tiles::unreachable_tile::UnreachableTile;
 use crate::tiles::unbreakable_wall_tile::UnbreakableWallTile;
 use crate::topologies::rectangle_topology::RectangleTopology;
-use crate::topology::Topology;
+
 
 struct RectFieldBuilder {
     size: Point,
@@ -22,18 +22,18 @@ struct RectFieldBuilder {
 }
 
 impl RectFieldBuilder {
-    fn generate(&self, attempts: i32) -> Option<RectGameField> {
-        let mut field = self.generate_empty();
-        let mut arr: Vec<Box<dyn Tile>> = (0..self.size.volume()).map(|x| Box::new(FieldTile {}) as Box<dyn Tile>).collect();
-        let mut canvas = RectangleTopology::new(Array2D::new(arr, self.size));
+    fn generate(&self, _attempts: i32) -> Option<RectGameField> {
+        let field = self.generate_empty();
+        let arr: Vec<Box<dyn Tile>> = (0..self.size.volume()).map(|_x| Box::new(FieldTile {}) as Box<dyn Tile>).collect();
+        let _canvas = RectangleTopology::new(Array2D::new(arr, self.size));
         Some(field)
     }
 
     fn generate_empty(&self) -> RectGameField {
         let true_size = self.size * 2 + Point { x: 1, y: 1 };
-        let mut arr: Vec<Box<dyn Tile>> = (0..true_size.volume()).map(|x| Box::new(BorderTile { wall: false }) as Box<dyn Tile>).collect();
+        let arr: Vec<Box<dyn Tile>> = (0..true_size.volume()).map(|_x| Box::new(BorderTile { wall: false }) as Box<dyn Tile>).collect();
 
-        let tiles = Array2D::new(arr, true_size);
+        let mut tiles = Array2D::new(arr, true_size);
 
         for x in 0..true_size.x {
             for y in 0..true_size.y {
@@ -57,7 +57,7 @@ impl RectFieldBuilder {
         RectGameField::new(self.size, tiles, 0, vec![], vec![], None, self.ammo_max)
     }
     
-    fn add_river(&self, field: &mut RectGameField) -> bool {
+    fn add_river(&self, _field: &mut RectGameField) -> bool {
         true
     }
 }

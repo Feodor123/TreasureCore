@@ -1,6 +1,6 @@
 use crate::point::Point;
 use core::slice::Iter;
-use crate::direction::Direction::Down;
+
 
 #[derive(Copy, Clone, Eq, PartialEq)]
 pub enum Direction {
@@ -12,7 +12,7 @@ pub enum Direction {
 
 impl Direction {
     pub fn from_point(p: Point) -> Option<Direction> {
-        match (p) {
+        match p {
             Point {x: 0, y: 1} => Some(Direction::Up),
             Point {x: 1, y: 0} => Some(Direction::Right),
             Point {x: 0, y: -1} => Some(Direction::Down),
@@ -22,7 +22,7 @@ impl Direction {
     }
 
     pub fn point(self) -> Point{
-        match (self) {
+        match self {
             Direction::Up => Point {x: 0, y: 1},
             Direction::Right => Point {x: 1, y: 0},
             Direction::Down => Point {x: 0, y: -1},

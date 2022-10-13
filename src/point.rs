@@ -74,7 +74,7 @@ impl ModPointComparator {
     //mod1 and mod2 must not be collinear
     pub fn new(mod1: Point, mod2: Point) -> ModPointComparator {
         assert!(!Point::collinear(mod1, mod2));
-        let mut volume = i32::abs(Point::sinmul(mod1, mod2));
+        let volume = i32::abs(Point::sinmul(mod1, mod2));
         if mod1.x != 0 && mod2.y != 0 {
             ModPointComparator { mod1, mod2, volume }
         } else {
@@ -83,7 +83,7 @@ impl ModPointComparator {
     }
 
     pub fn equal(&self, p1: Point, p2: Point) -> bool {
-        let mut p3 = p1 - p2;
+        let p3 = p1 - p2;
         return Point::sinmul(p3, self.mod1) % self.volume == 0 && Point::sinmul(p3, self.mod2) % self.volume == 0;
     }
 }

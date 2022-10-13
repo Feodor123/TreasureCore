@@ -5,7 +5,7 @@ use crate::tile::Tile;
 pub struct UnbreakableWallTile;
 
 impl Tile for UnbreakableWallTile {
-    fn on_step(&mut self, motion_type: MotionType, motion_info: MotionInfo) -> (MotionType, MotionInfo, MotionMessage) {
+    fn on_step(&mut self, motion_type: MotionType, _motion_info: MotionInfo) -> (MotionType, MotionInfo, MotionMessage) {
         let dir = match motion_type {
             MotionType::Move(dir) => dir,
             _ => panic!("Unexpected MoveInfo variant"),
@@ -13,7 +13,7 @@ impl Tile for UnbreakableWallTile {
         (MotionType::Move(Direction::invert(dir)), MotionInfo::Backtrack, MotionMessage::BlockedByWall)
     }
 
-    fn on_shoot(&mut self, bullet_motion_type: BulletMotionType, bullet_motion_info: BulletMotionInfo) -> (BulletMotionType, BulletMotionInfo,
+    fn on_shoot(&mut self, _bullet_motion_type: BulletMotionType, _bullet_motion_info: BulletMotionInfo) -> (BulletMotionType, BulletMotionInfo,
                                                                                                            BulletMotionMessage) {
         (BulletMotionType::End, BulletMotionInfo::None, BulletMotionMessage::None)
     }
