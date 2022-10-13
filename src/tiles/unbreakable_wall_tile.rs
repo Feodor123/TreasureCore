@@ -2,9 +2,9 @@ use crate::direction::Direction;
 use crate::misc_action_data::{BulletMotionInfo, BulletMotionMessage, BulletMotionType, MotionInfo, MotionMessage, MotionType};
 use crate::tile::Tile;
 
-pub struct UnbreakeableWallTile;
+pub struct UnbreakableWallTile;
 
-impl Tile for UnbreakeableWallTile {
+impl Tile for UnbreakableWallTile {
     fn on_step(&mut self, motion_type: MotionType, motion_info: MotionInfo) -> (MotionType, MotionInfo, MotionMessage) {
         let dir = match motion_type {
             MotionType::Move(dir) => dir,

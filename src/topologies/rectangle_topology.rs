@@ -4,8 +4,20 @@ use crate::direction::Direction;
 use crate::point::Point;
 use crate::topology::Topology;
 
-struct RectangleTopology<T> {
+pub struct RectangleTopology<T> {
     arr: Array2D<T>,
+}
+
+impl<T> RectangleTopology<T> {
+    pub fn size(&self) -> Point {
+        self.arr.size()
+    }
+}
+
+impl<T> RectangleTopology<T> {
+    pub fn new(arr: Array2D<T>) -> Self {
+        Self { arr }
+    }
 }
 
 impl<T> Index<Point> for RectangleTopology<T> {

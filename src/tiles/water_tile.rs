@@ -3,8 +3,8 @@ use crate::misc_action_data::{BulletMotionInfo, BulletMotionMessage, MotionInfo,
 use crate::tile::Tile;
 
 pub struct WaterTile {
-    flow_direction: Direction,
-    drift: i32,
+    pub flow_direction: Direction,
+    pub drift: i32,
 }
 
 impl Tile for WaterTile {

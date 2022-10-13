@@ -49,6 +49,10 @@ impl ops::Mul<i32> for Point {
 }
 
 impl Point {
+    pub fn volume(&self) -> i32 {
+        self.x*self.y
+    }
+    
     fn sinmul(p1: Point, p2: Point) -> i32 {
         p1.x * p2.y - p2.x * p1.y
     }

@@ -11,6 +11,16 @@ pub enum Direction {
 }
 
 impl Direction {
+    pub fn from_point(p: Point) -> Option<Direction> {
+        match (p) {
+            Point {x: 0, y: 1} => Some(Direction::Up),
+            Point {x: 1, y: 0} => Some(Direction::Right),
+            Point {x: 0, y: -1} => Some(Direction::Down),
+            Point {x: -1, y: 0} => Some(Direction::Left),
+            _ => None,
+        }
+    }
+
     pub fn point(self) -> Point{
         match (self) {
             Direction::Up => Point {x: 0, y: 1},

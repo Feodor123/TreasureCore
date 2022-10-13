@@ -6,6 +6,9 @@ use crate::tile::Tile;
 use crate::tiles::border_tile::BorderTile;
 use crate::tiles::field_tile::FieldTile;
 use crate::tiles::unreachable_tile::UnreachableTile;
+use crate::tiles::unbreakable_wall_tile::UnbreakableWallTile;
+use crate::topologies::rectangle_topology::RectangleTopology;
+use crate::topology::Topology;
 
 struct RectFieldBuilder {
     size: Point,
@@ -16,21 +19,19 @@ struct RectFieldBuilder {
     player_count: i32,
     river_drift: i32,
     ammo_max: i32,
-    bounded: bool,
 }
 
 impl RectFieldBuilder {
     fn generate(&self, attempts: i32) -> Option<RectGameField> {
         let mut field = self.generate_empty();
+        let mut arr: Vec<Box<dyn Tile>> = (0..self.size.volume()).map(|x| Box::new(FieldTile {}) as Box<dyn Tile>).collect();
+        let mut canvas = RectangleTopology::new(Array2D::new(arr, self.size));
         Some(field)
     }
 
     fn generate_empty(&self) -> RectGameField {
-        let mut arr: Vec<Box<dyn Tile>> = Vec::new();
-        let true_size = if self.bounded { self.size * 2 + Point { x: 1, y: 1 } } else { self.size * 2 };
-        for i in 0..true_size.x * true_size.y {
-            arr.push(Box::new(BorderTile { wall: false }))
-        }
+        let true_size = self.size * 2 + Point { x: 1, y: 1 };
+        let mut arr: Vec<Box<dyn Tile>> = (0..true_size.volume()).map(|x| Box::new(BorderTile { wall: false }) as Box<dyn Tile>).collect();
 
         let tiles = Array2D::new(arr, true_size);
 
@@ -43,30 +44,20 @@ impl RectFieldBuilder {
                 }
             }
         }
-
-        if self.bounded {
-            for x in (1..true_size.x).step_by(2) {
-                tiles[Point { x, y: 0 }] = Box::new(BorderTile { wall: false });
-                tiles[Point { x, y: true_size.y - 1 }] = Box::new(BorderTile { wall: false });
-            }
-
-            for y in (1..true_size.y).step_by(2) {
-                tiles[Point { x: 0, y }] = Box::new(BorderTile { wall: false });
-                tiles[Point { x: true_size.x - 1, y }] = Box::new(BorderTile { wall: false });
-            }
+        for x in (1..true_size.x).step_by(2) {
+            tiles[Point { x, y: 0 }] = Box::new(UnbreakableWallTile {});
+            tiles[Point { x, y: true_size.y - 1 }] = Box::new(UnbreakableWallTile {});
         }
 
-        RectGameField::new(self.size, tiles, 0, vec![], vec![], None, 3)
+        for y in (1..true_size.y).step_by(2) {
+            tiles[Point { x: 0, y }] = Box::new(UnbreakableWallTile {});
+            tiles[Point { x: true_size.x - 1, y }] = Box::new(UnbreakableWallTile {});
+        }
+
+        RectGameField::new(self.size, tiles, 0, vec![], vec![], None, self.ammo_max)
     }
-
-    // either add river to field and return true or do nothing and return false
+    
     fn add_river(&self, field: &mut RectGameField) -> bool {
-        let mut water = Array2D::<bool>::new(vec![false; (self.size.x * self.size.y) as usize], self.size);
-
-        if self.bounded {
-            let start = Point { x: rand::thread_rng().gen_range(0..self.size.x), y: self.size.y - 1 };
-            
-        } else {}
-        false
+        true
     }
 }
