@@ -1,5 +1,5 @@
-
 use crate::array_2d::Array2D;
+use crate::game_fields::rect_game_field::finite_river_builder::FiniteRiverBuilder;
 use crate::game_fields::rect_game_field::rect_game_field::RectGameField;
 use crate::point::Point;
 use crate::tile::Tile;
@@ -10,22 +10,24 @@ use crate::tiles::unbreakable_wall_tile::UnbreakableWallTile;
 use crate::topologies::rectangle_topology::RectangleTopology;
 
 
-struct RectFieldBuilder {
-    size: Point,
+pub struct RectFieldBuilder {
+    pub size: Point,
     //not counting walls and corners
-    swamp_cluster_size: i32,
-    swamp_cluster_count: i32,
-    portal_count: i32,
-    player_count: i32,
-    river_drift: i32,
-    ammo_max: i32,
+    pub swamp_cluster_size: i32,
+    pub swamp_cluster_count: i32,
+    pub portal_count: i32,
+    pub player_count: i32,
+    pub river_drift: i32,
+    pub ammo_max: i32,
 }
 
 impl RectFieldBuilder {
-    fn generate(&self, _attempts: i32) -> Option<RectGameField> {
-        let field = self.generate_empty();
+    pub fn generate(&self, _attempts: i32) -> Option<RectGameField> {
+        let mut field = self.generate_empty();
         let arr: Vec<Box<dyn Tile>> = (0..self.size.volume()).map(|_x| Box::new(FieldTile {}) as Box<dyn Tile>).collect();
-        let _canvas = RectangleTopology::new(Array2D::new(arr, self.size));
+        let mut canvas = RectangleTopology::new(Array2D::new(arr, self.size));
+        FiniteRiverBuilder::add_river(&mut canvas, self.river_drift);
+        self.apply_canvas(&mut field, &mut canvas);
         Some(field)
     }
 
@@ -54,10 +56,19 @@ impl RectFieldBuilder {
             tiles[Point { x: true_size.x - 1, y }] = Box::new(UnbreakableWallTile {});
         }
 
-        RectGameField::new(self.size, tiles, 0, vec![], vec![], None, self.ammo_max)
+        RectGameField::new(true_size, tiles, 0, vec![], vec![], None, self.ammo_max)
     }
     
     fn add_river(&self, _field: &mut RectGameField) -> bool {
         true
+    }
+
+    fn apply_canvas(&self, field: &mut RectGameField, canvas: &mut RectangleTopology<Box<dyn Tile>>) {
+        assert!(field.shape() == canvas.size()*2 + Point {x:1, y:1});
+        for x in 0..canvas.size().x {
+            for y in 0..canvas.size().y {
+                field[Point{x: 2*x+1, y: 2*y+1}] = canvas[Point{x, y}].clone();
+            }
+        }
     }
 }

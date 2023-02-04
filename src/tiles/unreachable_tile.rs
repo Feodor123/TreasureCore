@@ -1,6 +1,7 @@
 use crate::misc_action_data::{BulletMotionInfo, BulletMotionMessage, BulletMotionType, MotionInfo, MotionMessage, MotionType};
 use crate::tile::Tile;
 
+#[derive(Clone)]
 pub struct UnreachableTile;
 
 impl Tile for UnreachableTile {

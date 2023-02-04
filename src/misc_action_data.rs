@@ -1,6 +1,7 @@
 use crate::direction::Direction;
 use crate::point::Point;
 
+//state for movement between tiles logic
 #[derive(Eq, PartialEq, Copy, Clone)]
 pub enum MotionType {
     Move(Direction),
@@ -8,6 +9,7 @@ pub enum MotionType {
     End,
 }
 
+//state for tile logic
 #[derive(Eq, PartialEq, Copy, Clone)]
 pub enum MotionInfo {
     None,
@@ -16,6 +18,7 @@ pub enum MotionInfo {
     Backtrack,
 }
 
+//state for messages about visited tiles
 #[derive(Eq, PartialEq, Copy, Clone)]
 pub enum MotionMessage {
     None,
@@ -29,17 +32,20 @@ pub enum MotionMessage {
     Home { num: i32 },
 }
 
+//state for bullet movement 
 #[derive(Eq, PartialEq, Copy, Clone)]
 pub enum BulletMotionType {
     Move(Direction),
     End,
 }
 
+//state for tile logic when shooting
 #[derive(Eq, PartialEq, Copy, Clone)]
 pub enum BulletMotionInfo {
     None
 }
 
+//state for messages about shooting
 #[derive(Eq, PartialEq, Copy, Clone)]
 pub enum BulletMotionMessage {
     None,

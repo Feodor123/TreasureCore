@@ -6,3 +6,4 @@ pub mod border_tile;
 pub mod unreachable_tile;
 pub mod portal_tile;
 pub mod home_tile;
+pub mod tiles;

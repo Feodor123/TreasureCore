@@ -1,6 +1,7 @@
 use crate::misc_action_data::{MotionInfo, MotionMessage, MotionType};
 use crate::tile::Tile;
 
+#[derive(Clone)]
 pub struct FieldTile;
 
 impl Tile for FieldTile {

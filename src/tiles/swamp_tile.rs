@@ -2,6 +2,7 @@ use crate::direction::Direction;
 use crate::misc_action_data::{MotionInfo, MotionMessage, MotionType};
 use crate::tile::Tile;
 
+#[derive(Clone)]
 pub struct SwampTile;
 
 impl Tile for SwampTile {

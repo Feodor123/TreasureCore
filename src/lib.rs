@@ -1,16 +1,16 @@
-mod game_field;
-mod misc_action_data;
-mod direction;
-mod point;
-mod tiles;
+pub mod game_field;
+pub mod misc_action_data;
+pub mod direction;
+pub mod point;
+pub mod tiles;
 pub mod tile;
-mod game_fields;
-mod game;
-mod player_action;
-mod controller;
-mod array_2d;
-mod topology;
-mod topologies;
+pub mod game_fields;
+pub mod game;
+pub mod player_action;
+pub mod controller;
+pub mod array_2d;
+pub mod topology;
+pub mod topologies;
 
 #[cfg(test)]
 mod tests {

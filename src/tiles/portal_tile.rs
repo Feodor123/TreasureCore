@@ -2,6 +2,7 @@ use crate::misc_action_data::{MotionInfo, MotionMessage, MotionType};
 use crate::point::Point;
 use crate::tile::Tile;
 
+#[derive(Clone)]
 pub struct PortalTile {
     number: i32,
     next_portal_pos: Point,

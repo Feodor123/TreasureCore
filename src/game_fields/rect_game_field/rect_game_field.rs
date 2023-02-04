@@ -59,6 +59,14 @@ impl IndexMut<Point> for RectGameField {
 }
 
 impl RectGameField {
+    pub fn new(size: Point, tiles: Array2D<Box<dyn Tile>>, current_player: usize, characters: Vec<Character>, home_positions: Vec<Point>, treasure_pos: Option<Point>, ammo_max: i32) -> Self {
+        Self { size, tiles, current_player, characters, home_positions, treasure_pos, ammo_max }
+    }
+
+    pub fn shape(&self) -> Point {
+        self.size
+    }
+
     fn apply_move(&mut self, dir: Direction) -> Result<(), ()> {
         let mut mt = MotionType::Move(dir);
         let mut mi = MotionInfo::None;
@@ -153,9 +161,6 @@ impl RectGameField {
             self.characters[character_num].has_treasure = true;
             self.treasure_pos = None;
         }
-    }
-    pub fn new(size: Point, tiles: Array2D<Box<dyn Tile>>, current_player: usize, characters: Vec<Character>, home_positions: Vec<Point>, treasure_pos: Option<Point>, ammo_max: i32) -> Self {
-        Self { size, tiles, current_player, characters, home_positions, treasure_pos, ammo_max }
     }
 }
 
