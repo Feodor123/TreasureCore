@@ -1,6 +1,6 @@
 use crate::misc_action_data::{MotionInfo, MotionMessage, MotionType};
 use crate::point::Point;
-use crate::tile::Tile;
+use crate::tile_logic::TileLogic;
 
 #[derive(Clone)]
 pub struct PortalTile {
@@ -8,7 +8,7 @@ pub struct PortalTile {
     next_portal_pos: Point,
 }
 
-impl Tile for PortalTile {
+impl TileLogic for PortalTile {
     fn on_step(&mut self, motion_type: MotionType, motion_info: MotionInfo) -> (MotionType, MotionInfo, MotionMessage) {
         match motion_type {
             MotionType::Move(_dir) => {

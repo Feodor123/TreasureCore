@@ -3,7 +3,7 @@ pub mod misc_action_data;
 pub mod direction;
 pub mod point;
 pub mod tiles;
-pub mod tile;
+pub mod tile_logic;
 pub mod game_fields;
 pub mod game;
 pub mod player_action;

@@ -1,12 +1,12 @@
 use crate::misc_action_data::{MotionInfo, MotionMessage, MotionType};
-use crate::tile::Tile;
+use crate::tile_logic::TileLogic;
 
 #[derive(Clone)]
 pub struct HomeTile {
     number: i32,
 }
 
-impl Tile for HomeTile {
+impl TileLogic for HomeTile {
     fn on_step(&mut self, motion_type: MotionType, motion_info: MotionInfo) -> (MotionType, MotionInfo, MotionMessage) {
         match motion_type {
             MotionType::Move(_dir) => {

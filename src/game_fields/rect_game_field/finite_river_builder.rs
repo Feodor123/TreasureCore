@@ -2,7 +2,7 @@ use rand::Rng;
 use rand::seq::SliceRandom;
 use crate::direction::Direction;
 use crate::point::Point;
-use crate::tile::Tile;
+use crate::tiles::tile::Tile;
 use crate::tiles::water_tile::WaterTile;
 use crate::topologies::rectangle_topology::RectangleTopology;
 use crate::topology::Topology;
@@ -10,7 +10,7 @@ use crate::topology::Topology;
 pub struct FiniteRiverBuilder {}
 
 impl FiniteRiverBuilder {
-    pub fn add_river(canvas: &mut RectangleTopology<Box<dyn Tile>>, drift: i32) {
+    pub fn add_river(canvas: &mut RectangleTopology<Tile>, drift: i32) {
         let mut curr_point = Point { x: rand::thread_rng().gen_range(0..canvas.size().x), y: canvas.size().y - 1 };
         let mut points = Vec::new();
         while curr_point.y >= 0 {
@@ -25,8 +25,8 @@ impl FiniteRiverBuilder {
             curr_point = *possible_next.choose(&mut rand::thread_rng()).unwrap();
         }
         for i in 0..points.len() - 1 {
-            canvas[points[i]] = Box::new(WaterTile { flow_direction: Direction::from_point(points[i+1] - points[i]).unwrap(), drift});
+            canvas[points[i]] = Tile::WaterTile(WaterTile { flow_direction: Direction::from_point(points[i+1] - points[i]).unwrap(), drift});
         }
-        canvas[*points.last().unwrap()] = Box::new(WaterTile { flow_direction: Direction::Down, drift});
+        canvas[*points.last().unwrap()] = Tile::WaterTile( WaterTile { flow_direction: Direction::Down, drift});
     }
 }

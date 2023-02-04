@@ -6,11 +6,11 @@ use crate::game_field::GameField;
 use crate::misc_action_data::{BulletMotionInfo, BulletMotionMessage, BulletMotionType, MotionInfo, MotionMessage, MotionType};
 use crate::player_action::PlayerAction::{self, Move, Shoot};
 use crate::point::Point;
-use crate::tile::Tile;
+use crate::tile_logic::TileLogic;
 
 pub struct RectGameField {
     size: Point,
-    tiles: Array2D<Box<dyn Tile>>,
+    tiles: Array2D<Box<dyn TileLogic>>,
     current_player: usize,
     characters: Vec<Character>,
     home_positions: Vec<Point>,
@@ -45,7 +45,7 @@ impl GameField for RectGameField {
 }
 
 impl Index<Point> for RectGameField {
-    type Output = Box<dyn Tile>;
+    type Output = Box<dyn TileLogic>;
 
     fn index(&self, index: Point) -> &Self::Output {
         &self.tiles[index]
@@ -59,7 +59,7 @@ impl IndexMut<Point> for RectGameField {
 }
 
 impl RectGameField {
-    pub fn new(size: Point, tiles: Array2D<Box<dyn Tile>>, current_player: usize, characters: Vec<Character>, home_positions: Vec<Point>, treasure_pos: Option<Point>, ammo_max: i32) -> Self {
+    pub fn new(size: Point, tiles: Array2D<Box<dyn TileLogic>>, current_player: usize, characters: Vec<Character>, home_positions: Vec<Point>, treasure_pos: Option<Point>, ammo_max: i32) -> Self {
         Self { size, tiles, current_player, characters, home_positions, treasure_pos, ammo_max }
     }
 

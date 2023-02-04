@@ -1,6 +1,6 @@
 use crate::direction::Direction;
 use crate::misc_action_data::{MotionInfo, MotionMessage, MotionType};
-use crate::tile::Tile;
+use crate::tile_logic::TileLogic;
 
 #[derive(Clone)]
 pub struct WaterTile {
@@ -8,7 +8,7 @@ pub struct WaterTile {
     pub drift: i32,
 }
 
-impl Tile for WaterTile {
+impl TileLogic for WaterTile {
     fn on_step(&mut self, motion_type: MotionType, motion_info: MotionInfo) -> (MotionType, MotionInfo, MotionMessage) {
         match motion_type {
             MotionType::Move(_dir) => {},

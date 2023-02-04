@@ -1,5 +1,5 @@
 use enum_dispatch::enum_dispatch;
-use crate::tiles::tiles::Tiles;
+use crate::tiles::tile::Tile;
 use crate::tiles::border_tile::BorderTile;
 use crate::tiles::field_tile::FieldTile;
 use crate::tiles::home_tile::HomeTile;
@@ -11,7 +11,7 @@ use crate::tiles::water_tile::WaterTile;
 use crate::misc_action_data::{BulletMotionInfo, BulletMotionMessage, BulletMotionType, MotionInfo, MotionMessage, MotionType};
 
 #[enum_dispatch]
-pub trait Tile
+pub trait TileLogic
 {
    fn on_step(&mut self, motion_type: MotionType, motion_info: MotionInfo) -> (MotionType, MotionInfo, MotionMessage);
 

@@ -2,7 +2,7 @@ use crate::array_2d::Array2D;
 use crate::game_fields::rect_game_field::finite_river_builder::FiniteRiverBuilder;
 use crate::game_fields::rect_game_field::rect_game_field::RectGameField;
 use crate::point::Point;
-use crate::tile::Tile;
+use crate::tile_logic::TileLogic;
 use crate::tiles::border_tile::BorderTile;
 use crate::tiles::field_tile::FieldTile;
 use crate::tiles::unreachable_tile::UnreachableTile;
@@ -24,7 +24,7 @@ pub struct RectFieldBuilder {
 impl RectFieldBuilder {
     pub fn generate(&self, _attempts: i32) -> Option<RectGameField> {
         let mut field = self.generate_empty();
-        let arr: Vec<Box<dyn Tile>> = (0..self.size.volume()).map(|_x| Box::new(FieldTile {}) as Box<dyn Tile>).collect();
+        let arr: Vec<Box<dyn TileLogic>> = (0..self.size.volume()).map(|_x| Box::new(FieldTile {}) as Box<dyn TileLogic>).collect();
         let mut canvas = RectangleTopology::new(Array2D::new(arr, self.size));
         FiniteRiverBuilder::add_river(&mut canvas, self.river_drift);
         self.apply_canvas(&mut field, &mut canvas);
@@ -33,7 +33,7 @@ impl RectFieldBuilder {
 
     fn generate_empty(&self) -> RectGameField {
         let true_size = self.size * 2 + Point { x: 1, y: 1 };
-        let arr: Vec<Box<dyn Tile>> = (0..true_size.volume()).map(|_x| Box::new(BorderTile { wall: false }) as Box<dyn Tile>).collect();
+        let arr: Vec<Box<dyn TileLogic>> = (0..true_size.volume()).map(|_x| Box::new(BorderTile { wall: false }) as Box<dyn TileLogic>).collect();
 
         let mut tiles = Array2D::new(arr, true_size);
 
@@ -63,7 +63,7 @@ impl RectFieldBuilder {
         true
     }
 
-    fn apply_canvas(&self, field: &mut RectGameField, canvas: &mut RectangleTopology<Box<dyn Tile>>) {
+    fn apply_canvas(&self, field: &mut RectGameField, canvas: &mut RectangleTopology<Box<dyn TileLogic>>) {
         assert!(field.shape() == canvas.size()*2 + Point {x:1, y:1});
         for x in 0..canvas.size().x {
             for y in 0..canvas.size().y {

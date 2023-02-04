@@ -1,13 +1,13 @@
 use crate::direction::Direction;
 use crate::misc_action_data::{BulletMotionInfo, BulletMotionMessage, BulletMotionType, MotionInfo, MotionMessage, MotionType};
-use crate::tile::Tile;
+use crate::tile_logic::TileLogic;
 
 #[derive(Clone)]
 pub struct BorderTile {
     pub wall: bool,
 }
 
-impl Tile for BorderTile {
+impl TileLogic for BorderTile {
 
     fn on_step(&mut self, motion_type: MotionType, motion_info: MotionInfo) -> (MotionType, MotionInfo, MotionMessage) {
         if self.wall {
